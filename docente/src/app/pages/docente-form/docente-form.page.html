@@ -1,0 +1,117 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Formulario Docentes</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#">
+      </ion-back-button>
+    </ion-buttons>
+
+    
+
+    <ion-buttons slot="primary">
+
+      <ion-button disabled="{{nombre.invalid || edad.invalid || materia.invalid  }}" fill="solid" (click)="guardarDocente()">
+        Guardar
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+      <ion-button  (click)="nuevoDocente()">
+        <ion-icon slot="end" name="add-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+
+
+    <ion-item>
+      <ion-label>Nombre:</ion-label>
+      <ion-input name="nombre" #nombre="ngModel" required [(ngModel)]="docente.nombre">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha Nac:</ion-label>
+      <ion-input type="date" [(ngModel)]="docente.fecha">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Edad:</ion-label>
+      <ion-input name="edad" #edad="ngModel" pattern="^\d+$"  [(ngModel)]="docente.edad">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Materia: </ion-label>
+      <ion-input name="materia" #materia="ngModel" required [(ngModel)]="docente.materia">
+      </ion-input>
+    </ion-item>
+
+
+  </ion-list>
+
+  <ion-button *ngIf="isNew" fill="solid" (click)="eliminarDocente()" color="danger">
+    Eliminar
+    <ion-icon slot="end" name="trash"></ion-icon>
+  </ion-button>
+
+
+  <div *ngIf="edad.invalid && (edad.touched)" class="alert">
+    <div *ngIf="edad.errors?.['pattern']">
+      <ion-text color="danger">
+        Edad debe ser un número positivo
+      </ion-text>
+    </div>
+  </div>
+
+  <div *ngIf="nombre.invalid && (nombre.touched)" class="alert">
+    <div *ngIf="nombre.errors?.['required']">
+      <ion-text color="danger">
+        Nombre Obligatorio
+      </ion-text>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="materia.invalid && (materia.touched)" class="alert">
+    <div *ngIf="materia.errors?.['required']">
+      <ion-text color="danger">
+        Materia Obligatoria
+      </ion-text>
+    </div>
+
+  </div>
+
+
+  <div *ngIf="isNew"> 
+
+    <ion-item>
+      <img [src]="avatar" width="100" height="100" alt="">
+    </ion-item>
+  
+    <ion-item>
+      <label for="fileUpload"> Seleccionar avatar: </label>
+      <input id="fileUpload" type="file" #upload accept=".png, .jpg">
+    </ion-item>
+
+    <ion-button (click)="uploadFile(upload)">
+      Guardar avatar
+      <ion-icon slot="end" name="save"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="solid" (click)="removeAvatar()" color="danger">
+      Eliminar avatar
+      <ion-icon slot="end" name="trash"></ion-icon>
+    </ion-button>
+
+  </div>
+ 
+
+
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+
+  <ion-toolbar *ngIf="!isSearch" >
+
+    <ion-title>Lista de Docente</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button (click)="clickSearch()">
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isSearch">
+    <ion-searchbar show-cancel-button="always" show-clear-button="always" (ionClear)="clearSearch()" (ionChange)="buscarSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <table border="1" width="100%" style="margin: 25px 10px;">
+   <thead>
+    <th>Nombre</th>
+    <th>Edad</th>
+    <th>Materia</th>
+    
+    
+    
+   </thead>
+   <tbody>
+      <tr *ngFor="let docente of listaDocente" routerLink="/docente-form/{{docente.id}}">
+        <td>{{docente.nombre}}</td>
+        <td align="right">{{docente.edad}}</td>
+        
+        <td>{{docente.materia}}</td>
+        
+      </tr>
+   </tbody>
+  </table>
+
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/docente-form/new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>
