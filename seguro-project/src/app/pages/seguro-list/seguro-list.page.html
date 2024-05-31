@@ -2,7 +2,7 @@
 
   <ion-toolbar *ngIf="!isSearch" >
 
-    <ion-title>Lista de Computadoras</ion-title>
+    <ion-title>Lista de Asegurados</ion-title>
 
     <ion-buttons slot="primary">
       <ion-button (click)="clickSearch()">
@@ -24,20 +24,21 @@
 
   <table border="1" width="100%" style="margin: 25px 10px;">
    <thead>
-    <th>Modelo</th>
-    <th>Precio</th>
-    <th>Fecha</th>
-   
+    <th>Nombre</th>
+    <th>Fecha de Nacimiento</th>
+    <th>Bien Asegurado</th>
+    <th>Monto Asegurado</th>
     
     
    </thead>
    <tbody>
-      <tr *ngFor="let computadora of listaComputadora" routerLink="/computadora-form/{{computadora.id}}">
-        <td>{{computadora.modelo}}</td>
-        <td align="right">{{computadora.precio}}</td>
-        <td>{{computadora.fecha}}</td>
+      <tr *ngFor="let seguro of listaSeguro" routerLink="/seguro-form/{{seguro.id}}">
         
-        
+        <td>{{seguro.nombre}}</td>
+        <td>{{seguro.fecha}}</td>
+        <td>{{seguro.bien}}</td>
+        <td align="right">{{seguro.monto}}</td>
+ 
       </tr>
    </tbody>
   </table>
@@ -49,7 +50,7 @@
 
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button [routerLink]="['/computadora-form/new']">
+    <ion-fab-button [routerLink]="['/seguro-form/new']">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

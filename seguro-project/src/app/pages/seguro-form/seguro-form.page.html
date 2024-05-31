@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Formulario Seguro</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#">
+      </ion-back-button>
+    </ion-buttons>
+
+    
+
+    <ion-buttons slot="primary">
+
+      <ion-button disabled="{{nombre.invalid || monto.invalid || bien.invalid }}" fill="solid" (click)="guardarSeguro()">
+        Guardar
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+      <ion-button  (click)="nuevoSeguro()">
+        <ion-icon slot="end" name="add-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+
+
+    <ion-item>
+      <ion-label>Nombre:</ion-label>
+      <ion-input name="nombre" #nombre="ngModel" required [(ngModel)]="seguro.nombre">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-input required #fechaInput!="ngModel" type="date" [(ngModel)]="seguro.fecha"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Bien Asegurado:</ion-label>
+      <ion-input name="bien" #bien="ngModel" required [(ngModel)]="seguro.bien">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Monto asegurado:</ion-label>
+      <ion-input name="monto" #monto="ngModel" pattern="^\d+$"  [(ngModel)]="seguro.monto">
+      </ion-input>
+    </ion-item>
+
+   
+
+
+  </ion-list>
+
+  <ion-button *ngIf="isNew" fill="solid" (click)="eliminarSeguro()" color="danger">
+    Eliminar
+    <ion-icon slot="end" name="trash"></ion-icon>
+  </ion-button>
+
+
+  <div *ngIf="monto.invalid && (monto.touched)" class="alert">
+    <div *ngIf="monto.errors?.['pattern']">
+      <ion-text color="danger">
+        Monto debe ser un número positivo
+      </ion-text>
+    </div>
+  </div>
+
+  <div *ngIf="nombre.invalid && (nombre.touched)" class="alert">
+    <div *ngIf="nombre.errors?.['required']">
+      <ion-text color="danger">
+        Nombre Obligatorio
+      </ion-text>
+    </div>
+  </div>
+
+  <div *ngIf="bien.invalid && (bien.touched)" class="alert">
+    <div *ngIf="bien.errors?.['required']">
+      <ion-text color="danger">
+        Bien asegurado Obligatorio
+      </ion-text>
+    </div>
+  </div>
+
+
+
+
+</ion-content>

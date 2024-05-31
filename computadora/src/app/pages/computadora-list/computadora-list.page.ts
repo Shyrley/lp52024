@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, getDocs, limit, query, startAfter, where } from '@angular/fire/firestore';
+import { FormControl, FormGroup } from '@angular/forms';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({

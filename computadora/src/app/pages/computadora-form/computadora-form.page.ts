@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Firestore, addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { FormControl, FormGroup, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./computadora-form.page.scss'],
 })
 export class ComputadoraFormPage implements OnInit {
+
+  @ViewChild('fecha') fechaInput!: NgModel;
 
   id: any; //atributo que recibe el id del registro desde la ruta
   isNew : boolean = false;
@@ -48,8 +51,10 @@ export class ComputadoraFormPage implements OnInit {
     const document = doc(this.firestore, "computadora", this.id);
 
     updateDoc(document,{
+
+      fecha : this.computadora.fecha,
        
-      fecha : new Date(this.computadora.fecha),
+      //fecha : new Date(this.computadora.fecha),
       precio : this.computadora.precio,
       modelo : this.computadora.modelo
      
@@ -78,8 +83,8 @@ export class ComputadoraFormPage implements OnInit {
     let computadoraRef = collection(this.firestore, "computadora");
 
     addDoc(computadoraRef, {
-
-      fecha : new Date(this.computadora.fecha),
+      fecha : this.computadora.fecha,
+      //fecha : new Date(this.computadora.fecha),
       precio : this.computadora.precio,
       modelo : this.computadora.modelo
 
@@ -105,6 +110,7 @@ export class ComputadoraFormPage implements OnInit {
   }
 
 
+
   computadora : any = [];
   obtenerComputadora = (id: string) => {
     const document = doc(this.firestore, "computadora", id);
@@ -114,7 +120,6 @@ export class ComputadoraFormPage implements OnInit {
       if (doc.data()){
         this.computadora = doc.data();
         this.computadora.fecha = this.computadora.fecha?.toDate().toISOString().substring(0,10)+"";
-
 
         
       }else{

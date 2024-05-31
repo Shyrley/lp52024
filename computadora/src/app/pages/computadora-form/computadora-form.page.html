@@ -35,10 +35,9 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Fecha fabricacion:</ion-label>
-      <ion-input type="date" [(ngModel)]="computadora.fecha" >
-      </ion-input>
-    </ion-item>
+      <ion-label>Fecha Fabricacion</ion-label>
+      <ion-input required #fechaInput!="ngModel" type="date" [(ngModel)]="computadora.fecha"></ion-input>
+    </ion-item>
 
     <ion-item>
       <ion-label>Precio:</ion-label>
